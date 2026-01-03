@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Love</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- LOVE FALL -->
+<script>
+  function createFallingLove() {
+    const love = document.createElement("div");
+    love.innerText = "♡";
+    love.classList.add("falling-love");
+    love.style.left = Math.random() * 100 + "vw";
+    love.style.fontSize = (20 + Math.random() * 20) + "px";
+    love.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(love);
+    setTimeout(() => love.remove(), 5000);
+  }
+  setInterval(createFallingLove, 300);
+</script>
+
+<!-- BGM -->
+<audio id="bgm" src="song.mp3" loop></audio>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <div class="glass-box">
+        <img src="cat.gif.gif"class="cat">
+        <h1 class="title">Softly Yours</h1>
+        <p class="description">i made this little space just for you. aku pengen kamu ngerasain sedikit dari apa yang aku rasain setiap hari.</p>
+        <button onclick="playClick(); goTo(2)">GO GO GO</button>
+    </div>
+</div>
+
+<!-- PAGE 2 GAME -->
+<div class="page" id="page2">
+    <div class="glass-box">
+        <h2>Mini Game 🎮</h2>
+        <p>Cari pasangan kartu yang sama!<br> Selesaikan dulu baru bisa next halaman.</p>
+        <div id="gameBoard" class="game-board"></div>
+        <p id="moves">Moves: 0</p>
+        <button id="nextBtn" onclick="goTo(3)" disabled>Next</button>
+    </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <div class="glass-box">
+        <h2> Unspoken Things
+</h2>
+        <p>I’m not keeping things unspoken because I’m unsure. I’m here because I’m sure about wanting this closeness with you. I’ve been honest about how I feel, and I don’t want to hide it. I enjoy what we have: the talks, the comfort, the way we stay close. No labels, no pressure but also no pretending this is nothing. I want to keep choosing you in the ways I can. Being present, being real, and staying close because it feels right, not because I’m holding back, but because I’m genuinely here. Some things don’t need to be explained over and over. They’re already clear in the way I show up, and in how willingly I stay. </p>
+        <img src="fotov.jpg.jpg" alt="Foto Surprise">
+        <button onclick="goTo(4)">Next</button>
+    </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+    <div class="glass-box">
+        <h2>Song for U 🎵</h2>
+        <p>This song isn’t just a melody it feels like the quiet moments we share. “Lantas” fits when we’re already close, talking easily, staying connected, even without a label. It’s my way of saying what I don’t always say out loud.</p>
+
+        <!-- YouTube Video -->
+        <div class="video-container">
+            <iframe id="ytplayer" src="https://www.youtube.com/embed/ba-XAIskH_g?enablejsapi=1"
+                frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Spotify Embed -->
+        <div class="spotify-container">
+            <iframe id="spotifyPlayer" src="https://open.spotify.com/embed/track/4dtP86vkhzwNXCFpCtizce" 
+                width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+
+        <button onclick="goTo(5)">Next</button>
+    </div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="page5">
+    <div class="glass-box">
+        <h2>Message for You 💌</h2>
+        <div class="letter-box">
+            <p id="typewriter"></p>
+        </div>
+        <button onclick="goTo(1)">Back to Start</button>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+
+<!-- YouTube API -->
+<script>
+var tag=document.createElement('script');
+tag.src="https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
+
+let player;
+function onYouTubeIframeAPIReady(){
+    if(!document.getElementById('ytplayer')) return;
+    player=new YT.Player('ytplayer',{ events:{'onStateChange':onPlayerStateChange}});
+}
+
+function onPlayerStateChange(event){
+    const bgm=document.getElementById("bgm");
+    if(event.data===1 && !bgm.paused) bgm.pause();
+}
+
+// Spotify pause BGM + YouTube
+const spotifyPlayer = document.getElementById("spotifyPlayer");
+spotifyPlayer.addEventListener("click", () => {
+    const bgm = document.getElementById("bgm");
+    if(!bgm.paused) bgm.pause();
+    if(typeof player !== "undefined" && player.pauseVideo) player.pauseVideo();
+});
+</script>
+
+</body>
+</html>
